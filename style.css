@@ -1,0 +1,154 @@
+body {
+    font-family: sans-serif;
+    background: #ffe6f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+  }
+  
+  .frame {
+    width: 500px;
+    height: 600px;
+    border: none;
+  }
+  
+  .notebook-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* for tilted pics */
+  }
+  
+  .notebook {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    background-color: #f8c8dc;
+    border: 3px solid #f4a4c5;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease;
+    transform-style: preserve-3d;
+  }
+  
+  .notebook.expanded {
+    width: 350px;
+    height: 400px;
+  }
+  
+  .notebook.open .cover {
+    transform: rotateY(-150deg);
+  }
+  
+  /* <-- This is the new part to hide scrollbar when open --> */
+  .notebook.open .pages {
+    overflow-y: hidden !important; /* hide scrollbar */
+    max-height: 100%; /* prevent height overflow */
+    height: 100%; /* force height to container */
+    padding-right: 0; /* remove any extra padding that might cause overflow */
+  }
+  .notebook.open .pages::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for Firefox */
+  .notebook.open .pages {
+    scrollbar-width: none;
+  }
+  .cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f8c8dc;
+    backface-visibility: hidden;
+    transition: transform 0.5s ease;
+    transform-origin: left center;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .decor {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+  
+  .pages {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1;
+    overflow-y: auto;  /* default scroll */
+    font-size: 16px;
+    max-height: 100%; /* ensure height bound */
+  }
+  .page {
+    display: none;
+  }
+  
+  .controls {
+    margin-top: 20px;
+  }
+  
+  button {
+    background: #ff69b4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  
+  button:hover {
+    background: #ff1493;
+  }
+
+  /* Tilted Pictures CSS */
+
+  .tilted-pic {
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform-origin: center center;
+    user-select: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    transform-style: preserve-3d;
+    transform: translateY(-50%);
+    z-index: 5;
+  }
+
+  .tilted-left {
+    left: -120px;
+    transform: translateY(-50%) rotate(-10deg);
+  }
+
+  .tilted-right {
+    right: -120px;
+    transform: translateY(-50%) rotate(10deg);
+  }
+
+  .notebook-wrapper.open .tilted-pic {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .notebook.open .pages {
+    overflow-y: hidden;
+  }
+  
